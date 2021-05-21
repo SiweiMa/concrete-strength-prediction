@@ -1,21 +1,45 @@
 # Prediction of concrete strength by machine learning
-*The repository is the final project in course MSDS 699. [Colab link](https://colab.research.google.com/drive/1KFYW6li0pEBU6IIQ9T00QcdbQjZy8Rjk?usp=sharing)* 
+*The repository is the final project in course MSDS 699.*
 
 #### by Siwei Ma
 
-
 # Summary
 
-Concrete is the single most widely used man-made material in the world. Construction workers reply on the experiments to determine the strength of concrete. It would be ideal if we can predict the strength based on the information of raw materials. 
+Concrete is the single most widely used man-made material in the world. Construction workers reply on 
+the experiments to determine the strength of concrete. The app presents an attempt to predict the strength based on the 
+information of raw materials by machine learning methods. 
 
-The classical statistical methods like linear or non-linear regression prove to be unsuitable to cope with the complexity of modern higher performance concrete [1]. Therefore, several machine learning algorithms, LASSO, random forest regressor, extra tree regressor, were used to predict the concrete strength. 
+# Analysis Process
+## Data Cleaning
+The data of this project was collected from [academic research papers](https://www.journals.elsevier.com/construction-and-building-materials) and re-arranged to tidy format.
 
-By using randomized search cross validation, random forest regressor performs the best regarding the evaluation metrics of coefficient of variance. It gives coefficient of variance of 8.67%, which is within the acceptable range of coefficient of variation for 2 cylinder strengths, 9.0%, according to American Society for Testing and Materials (ASTM). The prediction by machine learning can serve as a good indicator for the strength of concrete.
+## Feature Engineering
+Create features related to chemical composition and specific surface area. Impute the missing values with mean. Standardize the data for Lasso and Ridge regression. 
 
+## Modeling
+The classical statistical methods like linear or non-linear regression prove to be unsuitable to cope with the complexity of modern higher performance concrete [1]. Therefore, several machine learning algorithms were used to predict the concrete strength. 
 
-# Data
+By using randomized search cross validation, extra tree regressor has the lowest RMSE score, among linear (Lasso and Ridge), bagging (random forest, extra tree), boosting (xgboost, lightgbm) regressors. **It gives RMSE of 7.47 MPa**. 
 
-The data of this project came from [this research paper](https://www.sciencedirect.com/science/article/pii/S0950061820339581) [2] generously shared by the authors.
+![](images/model_comparison.png)
+>Figure 1. Comparison between models.
+
+We apply the model to the hold-out test data to examine the performance. The model gives reasonable prediction ranging
+from 20-90 MPa.
+
+![](images/prediction.png)
+>Figure 2. The strength prediction by extra tree regressor.
+
+## Feature importance
+Select features based on permutation importance. If two or more features are codependent, the permutation importance would give unexpected results. For example, permuting a duplicated column would still allow prediction to be half supported by the other identical column. Thus, we performed hierarchical clustering on the  Spearman rank-order correlations and only kept a single feature from each cluster to solve collinearity. The ranking of permutation importance of the selected features is shown below.
+
+![](images/feature_importance.png)
+>Figure 3. Feature importance.
+
+## Limitation
+To improve the ease of use for the web app, we dramatically decreased the number of features from 153 to 9, which moderately sacrifice the accuracy of the model. The RMSE increased from 6.55 to 7.47 MPa. 
+
+The data used in this project is from academic publications, which could be quite possible that the research work cannot represent the construction work in reality. We cannot ignore the risk of violating the fundamental assumption in standard supervised learning setting which assumes both the training data and the test data are drawn independently from identical distribution. Collecting larger data, especially the data from site construction, to mitigate this concern would be my future work.
 
 # References
 [1] Henri Van Damme, Concrete material science: Past, present, and future innovations, Cement and Concrete Research, Volume 112, 2018, Pages 5-24, ISSN 0008-8846
