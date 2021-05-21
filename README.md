@@ -17,7 +17,7 @@ information of raw materials by machine learning methods.
 The data of this project was collected from [academic research papers](https://www.journals.elsevier.com/construction-and-building-materials) and re-arranged to tidy format.
 
 ## Feature Engineering
-Create features related to chemical composition and specific surface area. Impute the missing values with mean. Standardize the data for Lasso and Ridge regression. 
+Create features related to chemical composition and specific surface area. Impute the missing values with mean. Standardize the data for Lasso regression. 
 
 ## Modeling
 The classical statistical methods like linear or non-linear regression prove to be unsuitable to cope with the complexity of modern higher performance concrete [1]. Therefore, several machine learning algorithms were used to predict the concrete strength. 
