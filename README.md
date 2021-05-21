@@ -1,5 +1,5 @@
 # Prediction of concrete strength by machine learning
-*The repository is the final project in course MSDS 699.
+*The repository is the final project in course MSDS 699.*
 
 #### by Siwei Ma
 
