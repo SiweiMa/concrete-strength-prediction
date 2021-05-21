@@ -3,6 +3,9 @@
 
 #### by Siwei Ma
 
+![](images/screenshot.png)
+>Figure 1. Web app screen shot.
+
 # Summary
 
 Concrete is the single most widely used man-made material in the world. Construction workers reply on 
@@ -22,19 +25,19 @@ The classical statistical methods like linear or non-linear regression prove to 
 By using randomized search cross validation, extra tree regressor has the lowest RMSE score, among linear (Lasso), bagging (random forest, extra tree), boosting (xgboost, lightgbm) regressors. **It gives RMSE of 7.47 MPa**. 
 
 ![](images/model_comparison.png)
->Figure 1. Comparison between models.
+>Figure 2. Comparison between models.
 
 We apply the model to the hold-out test data to examine the performance. The model gives reasonable prediction ranging
 from 20-90 MPa.
 
 ![](images/prediction.png)
->Figure 2. The strength prediction by extra tree regressor.
+>Figure 3. The strength prediction by extra tree regressor.
 
 ## Feature importance
 Select features based on permutation importance. If two or more features are codependent, the permutation importance would give unexpected results. For example, permuting a duplicated column would still allow prediction to be half supported by the other identical column. Thus, we performed hierarchical clustering on the  Spearman rank-order correlations and only kept a single feature from each cluster to solve collinearity. The ranking of permutation importance of the selected features is shown below.
 
 ![](images/feature_importance.png)
->Figure 3. Feature importance.
+>Figure 4. Feature importance.
 
 ## Limitation
 To improve the ease of use for the web app, we dramatically decreased the number of features from 153 to 9, which moderately sacrifice the accuracy of the model. The RMSE increased from 6.55 to 7.47 MPa. 
