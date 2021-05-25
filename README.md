@@ -1,4 +1,4 @@
-# Web app to predict concrete strength [(link)](https://concrete-strength-siwei.herokuapp.com/)
+# Prediction of concrete strength by machine learning [(link)](https://concrete-strength-siwei.herokuapp.com/)
 *The repository is the final project in course MSDS 699.*
 
 #### by Siwei Ma
@@ -17,18 +17,18 @@ information of raw materials by machine learning methods.
 The data of this project was collected from [academic research papers](https://www.journals.elsevier.com/construction-and-building-materials) and re-arranged to tidy format.
 
 ## Feature Engineering
-Create features related to chemical composition and specific surface area. Impute the missing values with mean. Standardize the data for Lasso and Ridge regression. 
+Create features related to chemical composition and specific surface area. Impute the missing values with mean. Standardize the data for Lasso regression. 
 
 ## Modeling
 The classical statistical methods like linear or non-linear regression prove to be unsuitable to cope with the complexity of modern higher performance concrete [1]. Therefore, several machine learning algorithms were used to predict the concrete strength. 
 
-By using randomized search cross validation, extra tree regressor has the lowest RMSE score, among linear (Lasso), bagging (random forest, extra tree), boosting (xgboost, lightgbm) regressors. **It gives RMSE of 7.47 MPa**. 
+By using randomized search cross validation, extra tree regressor has the lowest RMSE score, among linear (Lasso), bagging (random forest, extra tree), boosting (xgboost, lightgbm) regressors. 
 
 ![](images/model_comparison.png)
 >Figure 2. Comparison between models.
 
 We apply the model to the hold-out test data to examine the performance. The model gives reasonable prediction ranging
-from 20-90 MPa.
+from 20-90 MPa. **It gives RMSE of 7.47 MPa**. 
 
 ![](images/prediction.png)
 >Figure 3. The strength prediction by extra tree regressor.
