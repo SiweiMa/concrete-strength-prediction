@@ -72,35 +72,54 @@ The classical statistical methods like linear or non-linear regression prove to 
 complexity of modern higher performance concrete [1]. Therefore, several machine learning algorithms were used to 
 predict the concrete strength. 
 
-By using randomized search cross validation, extra tree regressor has the lowest RMSE score, among 
-linear (Lasso and Ridge), bagging (random forest, extra tree), boosting (xgboost, lightgbm) regressors. **It gives RMSE 
-of 7.47 MPa**. 
+By using randomized search cross validation, extra tree regressor outperformed the other algorithms including 
+linear (Lasso, Ridge), bagging (random forest, extra tree), boosting (xgboost, lightgbm) regressors 
+in terms of the RMSE score.
 """)
 st.image(Image.open('images/model_comparison.png'), width=500)
 st.markdown(">Figure 1. Comparison between models.")
 
-st.markdown("""
-We apply the model to the hold-out test data to examine the performance. The model gives reasonable prediction ranging
-from 20-90 MPa.
-""")
-st.image(Image.open('images/prediction.png'), width=450)
-st.markdown(">Figure 2. The strength prediction by extra tree regressor.")
-
 st.markdown("#### Feature importance")
 st.markdown("""
-Select features based on permutation importance. If two or more features are codependent, the permutation importance
-would give unexpected results. For example, permuting a duplicated column would still allow prediction to be half
-supported by the other identical column. Thus, we performed hierarchical clustering on the  Spearman rank-order 
-correlations and only kept a single feature from each cluster to solve collinearity. 
+Select features based on permutation importance. If two or more features are codependent, 
+the permutation importance would give unexpected results. 
+For example, permuting a duplicated column would still allow prediction to be half supported by the other identical column. 
+As shown in the heatmap of Spearman rank-order correlations (Fig 3. zoom-in maybe needed to see details), 
+some features are correlated and could be clustered as a group. 
+Thus, we performed hierarchical clustering on the Spearman rank-order correlations and 
+only kept a single feature from each cluster to solve collinearity.
+""")
+st.image(Image.open('images/spearmanr.png'), width=500)
+st.markdown(">Figure 2. Heatmap of Spearman rank-order correlations.")
+
+st.markdown("""
+It is also useful to test the significance of the feature's importance. As shown below, the bar chart in blue shows 
+a null hypothesis distribution for comparison with the permutation importance in red. It is likely that a significant 
+feature would be different from the null hypothesis distribution, thus we will drop the non-significant features.
+""")
+st.image(Image.open('images/ptest.png'), width=500)
+st.markdown(">Figure 3 The empirical p-test on feature importance.")
+
+st.markdown("""
+Furthermore, we also keep decreasing the number of features to 9 based on domain knowledge. 
 The ranking of permutation importance of the selected features is shown below.
 """)
-st.image(Image.open('images/feature_importance.png'), width = 500)
-st.markdown(">Figure 3. Feature importance.")
+st.image(Image.open('images/feature_importance.png'), width=500)
+st.markdown(">Figure 4. Feature importance.")
+
+
+st.markdown("#### Prediction")
+st.markdown("""
+After filtering out the correlated features, we apply the model to the hold-out test data to examine the performance. 
+The model gives reasonable prediction ranging from 20-90 MPa. **It gives RMSE of 7.81 MPa**. 
+""")
+st.image(Image.open('images/prediction.png'), width=450)
+st.markdown(">Figure 4. The strength prediction by extra tree regressor.")
 
 st.markdown("#### Limitation")
 st.markdown("""
 To improve the ease of use for the web app, we dramatically decreased the number of features from 153 to 9, which 
-moderately sacrifice the accuracy of the model. The RMSE increased from 6.55 to 7.47 MPa. 
+moderately sacrifice the accuracy of the model. The RMSE increased from 6.49 to 7.81 MPa. 
 
 The data used in this project is from academic publications, which could be quite possible that 
 the research work cannot represent the construction work in reality. We cannot ignore the risk of violating the 
