@@ -38,14 +38,13 @@ It is also useful to test the significance of the feature's importance. As shown
 
 >Figure 5. Feature importance.
 
-The ranking of permutation importance of the selected features is shown below.
+Furthermore, we also keep decreasing the number of features to 9 based on domain knowledge. The ranking of permutation importance of the selected features is shown below.
 
 ![](images/feature_importance.png)
 >Figure 6. Feature importance.
 
 ## Prediction
-After filtering out the correlated features, we apply the model to the hold-out test data to examine the performance. The model gives reasonable predictions ranging
-from 20-90 MPa. **It gives RMSE of 7.81 MPa**. 
+After filtering out the correlated features, we apply the model to the hold-out test data to examine the performance. The model gives reasonable predictions ranging from 20-90 MPa. **It gives RMSE of 7.81 MPa**. 
 
 ![](images/prediction.png)
 >Figure 5. The strength prediction by extra tree regressor.
