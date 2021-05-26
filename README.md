@@ -29,6 +29,7 @@ By using randomized search cross validation, extra tree regressor outperformed t
 Select features based on permutation importance. If two or more features are codependent, the permutation importance would give unexpected results. For example, permuting a duplicated column would still allow prediction to be half supported by the other identical column. As shown in the heatmap of Spearman rank-order correlations (Fig 3. zoom-in maybe needed to see details), some features are correlated and could be clustered as a group. Thus, we performed hierarchical clustering on the Spearman rank-order correlations and only kept a single feature from each cluster to solve collinearity. 
 
 <img src="https://github.com/SiweiMa/concrete-strength-prediction/blob/main/images/spearmanr.png" width="600">
+
 >Figure 3. Heatmap of Spearman rank-order correlations.
 
 The ranking of permutation importance of the selected features is shown below.
