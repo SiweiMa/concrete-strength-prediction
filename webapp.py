@@ -14,12 +14,12 @@ def user_input_features():
     coarse_aggregate = st.sidebar.number_input('Coarse aggregate content (kg/m3)', 400.0, 1000.0, value=920.0, format="%.1f")
     fine_aggregate = st.sidebar.number_input('Fine aggregate (kg/m3)', 210.0, 1100.0, value=716.0, format="%.1f")
 
-    surface_area = st.sidebar.number_input('Specific surface area (m2/kg)', 72500, 3000000, value=842792)
+    surface_area = st.sidebar.number_input('Overall specific surface area (m2/kg) * corresponding mix proportion (kg/m3)', 72500, 3000000, value=842792)
     superplasticizer = st.sidebar.number_input('Superplasticizer (kg/m3)', 0.0, 30.0, value=10.8, format="%.3f")
     water = st.sidebar.number_input('Water (kg/m3)', 90.0, 800.0, value=176.0, format="%.1f") # 168.0
 
     SO3 = st.sidebar.number_input('SO3 content (kg/m3)', 0.0, 2700.0, value=923.5, format="%.1f")
-    CaO = st.sidebar.number_input('CaO', 700.0, 50000.0, value=26306.0, format="%.1f")
+    CaO = st.sidebar.number_input('CaO content (kg/m3)', 700.0, 50000.0, value=26306.0, format="%.1f")
 
     data = {
             'Fine aggregate': fine_aggregate,
@@ -84,7 +84,7 @@ st.markdown("""
 Select features based on permutation importance. If two or more features are codependent, 
 the permutation importance would give unexpected results. 
 For example, permuting a duplicated column would still allow prediction to be half supported by the other identical column. 
-As shown in the heatmap of Spearman rank-order correlations (Fig 3. zoom-in maybe needed to see details), 
+As shown in the heatmap of Spearman rank-order correlations (Fig 2. zoom-in maybe needed to see details), 
 some features are correlated and could be clustered as a group. 
 Thus, we performed hierarchical clustering on the Spearman rank-order correlations and 
 only kept a single feature from each cluster to solve collinearity.
